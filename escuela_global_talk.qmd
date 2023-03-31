@@ -1,0 +1,878 @@
+---
+format: 
+  revealjs:
+    hash-type: number
+    transition: fade
+    auto-stretch: false
+    height: 900
+    width: 1600
+    logo: logo_pesa.svg
+    footer: Slides by Paul E. Santos Andrade - [@PaulESantos](https://twitter.com/PaulEfrenSantos), made with [Quarto](https://quarto.org/docs/presentations/revealjs/index.html). 
+    slide-number: c/t
+    theme: [styles.scss]
+execute: 
+  freeze: true
+---
+
+#  {visibility="hidden"}
+```{r include=FALSE}
+library(tidyverse)
+library(palmerpenguins)
+penguins <- palmerpenguins::penguins
+```
+
+
+
+##  {#TitleSlide data-menu-title="TitleSlide" background-color="#EDE8EA" background-image="images/joel-peel-vlBCGvydRrs-unsplash.jpg" background-position="left" background-size="contain"}
+
+
+::: {style="position: absolute; left: 480px; top: 200px; height: 525px; width: 1200px; background-color: #CECABE; padding: 20px; padding-left: 50px; box-shadow: 15px 15px 0px 0px #56BF99; border-radius: 5px;"}
+
+[Procesamiento y Gestión de Datos con {{< fa brands r-project >}}]{style="font-size: 60px; font-weight: bold; line-height: 1em; margin: 0px"} 
+
+<br>
+
+[Herramientas para la investigación  ]{style="font-size: 50px; font-weight: bold; line-height: 1em; margin: 0px"}
+
+<br>
+
+<div><div style="vertical-align: top; display: inline-block; font-size: 40px; font-weight: bold;">Paul Efren Santos Andrade,&nbsp;</div></div>
+[2023-03-31]{style="font-size: 25px;font-weight: light;"}
+:::
+
+## {{< fa brands r-project >}} <https://cran.r-project.org/>
+
+::: incremental
+
+- Lenguaje de código abierto - sistema multiplataforma.
+
+- Lenguaje de código abierto de de alto nivel. (Fácil de aprender!!!).
+
+- Ideal para gestión - análisis - visualización de datos, desarrollo web, aplicaciones web, y mucho mas.!!!
+
+- De fácil integración con programas de composición de textos como  $\LaTeX$ y  $\Pandoc$. Permitiendo la producción de  documentos, `.docx`, `.pdf`, `.html`, `.ppt`,integrando resultados de código y gráficas.
+
+- El desarrollo de paquetes  en {{< fa brands r-project >}} permite el acceso a nuevas técnicas.
+
+- La documentación de los diferentes paquetes y funciones de robusta.
+
+:::
+
+
+
+## Caracteristicas basicas
+
+
+> {{< fa brands r-project >}} se enfoca en proporcionar un lenguaje que es útil para el trabajo interactivo, para el desarrollar nuevas herramientas .
+
+
+::: incremental
+
+-  Se ejecuta en cualquier plataforma de computo estándar y sistema operativo.
+
+- Desarrollo permanente, como indicativo del desarrollo activo del software.
+
+- Capacidad gráfica sofisticada -  producción de gráficos con calidad de publicación. 
+
+- La comunidad de usuarios de {{< fa brands r-project >}} es dinámica.
+
+:::
+
+## {{< fa brands r-project >}} Software libre
+> Una gran ventaja que R es que es gratuito en el sentido de software libre.
+> Los derechos de autor del código fuente principal de R son propiedad de la Fundación R y se publican bajo la Licencia Pública General de GNU versión 2.0.
+
+::: incremental
+
+- La libertad de usar el software con cualquier propósito.
+
+- La libertad de estudiar cómo funciona el software y adaptarlo a tus necesidades.
+
+- La libertad de distribuir copias del software a otros.
+
+- La libertad de mejorar y modificar el software, y distribuir tus versiones mejoradas a otros.
+:::
+. . .
+
+::: callout-tip
+## Estas libertades fomentan la colaboración y la innovación. 
+
+:::
+
+
+
+## {background-color="#EDE8EA" background-image="images/joel-peel-vlBCGvydRrs-unsplash.jpg"}
+
+:::: {.columns}
+::: {.column width="50%"}
+<center>
+<img src="images/RLogo.svg" width=235px style="vertical-align: center;"></img>
+</center><br>
+![Engine](images/r_engine.jpg){#fig-surus width=100%}
+:::
+
+::: {.column width="50%"}
+<center>
+<img src="images/RStudio-Logo-flat.svg" width=500px style="vertical-align: center; display: inline-block;"></img>
+</center><br>
+![Dashboard](images/r_dashbord.jpg){#fig-hanno width=100%}
+:::
+:::
+
+::: aside
+[Statistical Inference via Data Science A ModernDive into R and the Tidyverse](https://moderndive.com/)
+:::
+
+## 
+
+| base                                             | dplyr                          |
+|--------------------------------------------------|------------------------------- |
+| `df[order(x), , drop = FALSE]`                   | `arrange(df, x)`               |
+| `df[!duplicated(x), , drop = FALSE]`, `unique()` | `distinct(df, x)`              |
+| `df[which(x), , drop = FALSE]`, `subset()`       | `filter(df, x)`                |
+| `df$z <- df$x + df$y`, `transform()`             | `mutate(df, z = x + y)`        |
+| `df[[1]]`, `df$x`                                | `pull(df, 1)`, `pull(df, x)`   |
+| `names(df)[names(df) == "x"] <- "y"`             | `rename(df, y = x)`            |
+| `df[union("y", names(df))]`                      | `relocate(df, y)`              |
+| `df[c("x", "y")]`, `subset()`                    | `select(df, x, y)`             |
+| `df[grepl("^x", names(df))]`                     | `select(df, starts_with("x"))` |
+| `mean(df$x)`, `tapply()`, `aggregate()`, `by()`  | `summarise(df, mean(x))`       |
+| `df[c(1, 2, 5), , drop = FALSE]`                 | `slice(df, c(1, 2, 5))`        |
+
+##
+
+:::: {.columns}
+
+:::{.column width="50%"}
+
+```{r eval=FALSE, echo=TRUE}
+plot(mtcars$wt, mtcars$mpg, 
+     main = "Line chart in Base R", 
+     type = "o",
+     col = "red")
+```
+```{r echo=FALSE,  fig.height= 10}
+plot(mtcars$wt, mtcars$mpg, 
+     main = "Line chart in Base R", 
+     type = "o",
+     col = "red")
+```
+:::
+
+:::{.column width="50%"}
+
+```{r eval=FALSE, echo=TRUE}
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg, group=1)) +
+  geom_line(colour = "red", size = 1.5) +
+  geom_point(colour = "red", size = 4, shape = 21, fill = "white") +
+  ggtitle("Line chart in ggplot2")
+
+```
+
+
+```{r echo=FALSE, fig.height= 9}
+library(ggplot2)
+ggplot(data = mtcars,
+       aes(x = wt, y = mpg, group=1)) +
+  geom_line(colour = "red", size = 1.5) +
+  geom_point(colour = "red", size = 4, shape = 21, fill = "white") +
+  ggtitle("Line chart in ggplot2")
+
+```
+:::
+
+::::
+
+
+## Tidyverse {background-color="#303436" background-image="images/joel-peel-vlBCGvydRrs-unsplash.jpg"}
+<center>
+<img src="images/tidyverse_packages_purpose.png" style="height: 800px; width: 1400px"></img>
+</center>
+
+
+
+## `readr` {background-image="images/hex/readr.svg" background-size="8%" background-position="98% 4%"}
+
+<!--start columns-->
+:::: {.columns}
+
+::: {.column width="50%"}
+> El objetivo de `readr` es proporcionar una forma rápida y amigable de leer datos rectangulares y llevarlos a R.
+:::
+
+::: {.column width="50%"}
+##### Puedes importar datos con...
+
+- Archivos separados por comas (CSV) `read_csv()`
+- Archivos de texto separados por tabuladores `read_tsv()`
+- Archivos delimitados generales `read_delim()` delimitados con barra vertical "|".
+
+:::
+
+::::
+<!--end columns-->
+## `readxl` {background-image="images/hex/readxl.svg" background-size="8%" background-position="98% 4%"}
+
+<!--start columns-->
+:::: {.columns}
+
+::: {.column width="50%"}
+> El paquete readxl facilita la tarea de obtener datos de Excel y llevarlos a R.
+:::
+
+::: {.column width="50%"}
+##### Puedes importar datos con...
+
+- Archivos *.xls* `read_xls()`
+- Archivos *.xlsx* `read_tsv()`
+- Lista de nombres de hojas de un archivo excel `excel_sheets()`.
+
+:::
+
+::::
+
+## `tibble` {background-image="images/hex/tibble.svg" background-size="8%" background-position="98% 4%"}
+
+<!--start columns-->
+:::: {.columns}
+
+::: {.column width="50%"}
+- Un `tibble` o `tbl_df`es una reimaginación moderna del `data.frame`.
+- No cambian los nombres o tipos de las variables, y no realizan una coincidencia parcial.
+- Tienen un método de impresión mejorado.
+:::
+
+::: {.column width="50%"}
+
+::: panel-tabset
+## `data.frame`
+```{r echo=TRUE}
+mtcars[1:9, 1:10]
+```
+
+## `tibble`
+```{r echo=TRUE}
+mtcars |> 
+  tibble::as_tibble()
+```
+:::
+:::
+
+::::
+<!--end columns-->
+
+
+## `ggplot2` {background-image="images/hex/ggplot2.svg" background-size="8%" background-position="98% 4%"}
+
+<!--start panels-->
+::: {.panel-tabset}
+
+### ggplot2
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- Es uno de los sistemas más elegantes y versátiles. 
+- Implementa la gramática de los gráficos, un sistema coherente para describir y construir gráficos. 
+
+> [ggplot2: elegant graphics for data analysis](https://ggplot2-book.org/)
+:::
+
+::: {.column width="50%"}
+<center>
+![](images/cover_ggplot2.jpg){width="500"}
+</center>
+:::
+
+::::
+
+
+
+
+
+### Codigo
+
+
+```{r eval=FALSE, echo=TRUE}
+library(tidyverse)
+library(showtext)
+library(usefunc)
+library(lubridate)
+library(jcolors)
+library(gtable)
+library(grid)
+library(RCurl)
+library(png)
+
+tuesdata <- tidytuesdayR::tt_load('2022-03-15')
+cran <- tuesdata$cran
+
+# add fonts
+font_add_google(name = "Source Code Pro", family = "source")
+showtext_auto()
+
+# list tidyverse packages
+tv_pkg <- c("dplyr", "forcats", "ggplot2", "purrr", "readr", "stringr", "tibble", "tidyr")
+
+# prep data
+con_char_date <- function(date){
+  k <- str_split(date, pattern = " ")[[1]]
+  if (length(k) == 5){
+    return(mdy(str_flatten(k[c(2, 3, 5)], collapse = " ")))
+  }
+  if (length(k) == 6){
+    return(mdy(str_flatten(k[c(2, 4, 6)], collapse = " ")))
+  }
+}
+
+con_date <- function(date){
+  tryCatch(as.Date(date), error=function(e) con_char_date(date))
+}
+
+convert_date <- function(date_vec){
+  unlist(lapply(date_vec, function(x) con_date(x)))
+}
+
+plot_data <- cran %>% 
+  filter(package %in% tv_pkg, 
+         rmd > 0) %>% 
+  mutate(date = convert_date(date), 
+         date = as_date(date)) 
+
+# plot
+p <- ggplot() +
+  geom_area(data = plot_data, 
+            mapping = aes(x = date, y = rmd, group = package, fill = package)) +
+  facet_wrap(~package, nrow = 1) +
+  scale_x_date(limits = c(ymd(20140101), ymd(20211231)),
+               breaks = c(ymd(20140101), ymd(20180101)),
+               labels = c(2014, 2018)) +
+  scale_y_continuous(limits = c(0, 15), 
+                     breaks = c(0, 5, 10)) +
+  coord_cartesian(expand = F) +
+  scale_fill_jcolors(palette = "pal6") +
+  labs(x = "", 
+       y = "Number of .Rmd vignettes", 
+       title = "{tidyverse} vignettes", 
+       subtitle = str_wrap_break("The tidyverse is a collection of open source R packages that `share an underlying design philosophy, grammar, and data structures of tidy data`. Of the 8 core tidyverse packages {dplyr} has the highest number of vignettes.\n\nN. Rennie | Data: github.com/rmflight/vignette_analysis\n\n", 70)) +
+  theme(legend.position = "none", 
+        plot.background = element_rect(colour = "#3A3B3C", fill = "#3A3B3C"), 
+        panel.background = element_rect(colour = "#3A3B3C", fill = "#3A3B3C"), 
+        plot.title = element_text(colour = "white", family = "source", face = "bold", hjust = 0, size = 16), 
+        plot.subtitle = element_text(colour = "white", family = "source", hjust = 0, size = 12, 
+                                     margin = margin(5,5,10,5)),
+        axis.text = element_text(colour = "white", family = "source", hjust = 0, size = 12),
+        axis.title = element_text(colour = "white", family = "source", hjust = 0.5, size = 12),
+        plot.margin = unit(c(0.5, 0.5, 0.5, 0.5), "cm"), 
+        panel.spacing = unit(1.5, "lines"),
+        strip.background = element_rect(colour = "#3A3B3C", fill = "#3A3B3C"),
+        strip.text = element_text(margin = margin(20,5,20,5)),
+        panel.grid.major = element_line(colour = "#4d4e4f"),
+        panel.grid.minor = element_line(colour = "#4d4e4f"))
+p
+
+# add images
+dplyr <- readPNG("dplyr.png")
+forcats <- readPNG("forcats.png")
+ggplot2 <- readPNG("ggplot2.png")
+purrr <- readPNG("purrr.png")
+readr <- readPNG("readr.png")
+stringr <- readPNG("stringr.png")
+tibble <- readPNG("tibble.png")
+tidyr <- readPNG("tidyr.png")
+
+# edit facet labels
+g <- ggplot_gtable(ggplot_build(p))
+strips <- grep("strip", g$layout$name)
+new_grobs <- list(rasterGrob(dplyr),
+                  rasterGrob(forcats), 
+                  rasterGrob(ggplot2), 
+                  rasterGrob(purrr), 
+                  rasterGrob(readr), 
+                  rasterGrob(stringr), 
+                  rasterGrob(tibble), 
+                  rasterGrob(tidyr))
+g$grobs[strips] <- new_grobs
+grid.draw(g)
+```
+
+[By: ]{.small-text} {{< fa brands twitter >}} [@nrennie35](https://twitter.com/nrennie35){.small-text}
+
+
+
+### Resultado
+
+<center>
+![](images/tidyverse_vignettes.jpeg){width="1200" fig-alt="@nrennie35"}
+
+</center>
+
+[By: ]{.small-text} {{< fa brands twitter >}} [@nrennie35](https://twitter.com/nrennie35){.small-text}
+
+
+::: 
+
+## dplyr {background-image="images/hex/dplyr.svg" background-size="8%" background-position="98% 4%"}
+
+<!--start panels-->
+::: {.panel-tabset}
+
+### dplyr
+> `dplyr` - gramática de manipulación de datos, proporcionando un conjunto consistente de verbos que ayudan a resolver los desafíos más comunes de manipulación de datos:
+
+- `mutate()` agrega nuevas variables que son funciones de variables existentes.
+- `select()` selecciona variables en función de sus nombres.
+- `filter()` selecciona casos en función de sus valores.
+- `summarise()` reduce varios valores a un único resumen.
+- `arrange()` cambia el orden de las filas.
+
+
+### select
+:::: {.columns width=50%}
+
+::: {.column}
+- Selecciona (y opcionalmente renombra) variables en un marco de datos, utilizando un mini-lenguaje conciso que hace fácil referirse a las variables según su nombre. Por ejemplo:
+- Por nombre, a:f selecciona todas las columnas desde "a" a la izquierda hasta "f" a la derecha.
+- Por tipo, `where(is.numeric)` selecciona todas las columnas numéricas.
+:::
+
+::: {.column width=50%}
+
+```{r echo=TRUE}
+#| code-line-numbers: "2-4"
+penguins |> 
+  select(species,
+         sex,
+         body_mass_g)
+```
+:::
+::::
+<!--end columns-->
+
+### arrange
+
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+- `arrange()` es una función de dplyr que permite ordenar las filas de un data.frame según los valores de una o varias columnas seleccionadas.
+
+- `desc()` transforma un vector en un formato que será ordenado en orden descendente.
+
+:::
+
+::: {.column width=50%}
+
+```{r echo=TRUE}
+#| code-line-numbers: "3"
+penguins |>
+  select(species, sex, body_mass_g) |>
+  arrange(desc(body_mass_g))
+```
+
+:::
+
+::::
+<!--end columns-->
+
+### group_by & sumamrise
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+- `group_by()` se utiliza para dividir los datos en grupos basados en variables específicas.
+- `summarise()` se utiliza para resumir los datos dentro de cada uno de estos grupos.
+:::
+
+::: {.column width=50%}
+```{r echo=TRUE}
+#| code-line-numbers: "3-4"
+penguins |>
+  select(species, sex, body_mass_g) |>
+  group_by(species, sex) |>         
+  summarize(mean = mean(body_mass_g))
+```
+
+:::
+
+::::
+<!--end columns-->
+
+### mutate
+
+:::: {.columns}
+
+::: {.column width=50%}
+- `mutate()` crea nuevas columnas que son funciones de variables existentes. 
+- También puede modificar (si el nombre es el mismo que el de una columna existente) y eliminar columnas (estableciendo su valor en NULL).
+
+:::
+
+::: {.column width=50%}
+```{r echo=TRUE}
+#| code-line-numbers: "5"
+penguins |>
+  count(species, sex) |>
+  add_count(species, wt = n, 
+            name = "n_species") |>
+  mutate(prop = n/n_species*100)
+```
+
+:::
+
+::::
+<!--end columns-->
+
+### filter
+
+:::: {.columns}
+
+::: {.column width=50%}
+- `filter()` se utiliza para filtrar un data.frame, manteniendo todas las filas que satisfacen condiciones especificas. 
+- Es importante tener en cuenta que cuando una condición se evalúa como NA, la fila se eliminará.
+
+:::
+
+::: {.column width=50%}
+
+```{r echo=TRUE}
+#| code-line-numbers: "6"
+penguins |>
+  count(species, sex) |>
+  add_count(species, wt = n, 
+            name = "n_species") |>
+  mutate(prop = n/n_species*100) |>
+  filter(species == "Chinstrap")
+```
+
+:::
+
+::::
+<!--end columns-->
+
+:::
+<!--end panels-->
+
+
+## stringr {background-image="images/hex/stringr.svg" background-size="8%" background-position="98% 4%"}
+
+<!--start panels-->
+::: {.panel-tabset}
+
+### stringr
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+- `stringr` proporciona un conjunto coherente de funciones diseñadas para hacer que trabajar con cadenas de texto sea lo más fácil posible.
+
+- El paquete incluye muchas funciones para ayudarnos con las **expresiones regulares**, las cuales son un lenguaje conciso para describir patrones en las cadenas de caracteres.
+
+- [`RegExplain`](https://www.garrickadenbuie.com/project/regexplain/)
+
+:::
+
+::: {.column width=50%}
+ 
++ **Estas funciones nos ayudan a:**
+
+- Detectar coincidencias `str_detect()`.
+- Sub conjuntos de las cadenas de texto `str_sub()`.
+- Manejar longitudes de cadenas de texto `str_length()`.
+- Modificar las cadenas de texto `str_to_upper()` - `str_to_lower()` -`str_to_sentence()`
+- Unir y dividir cadenas de texto `str_c()` - `str_split()`
+
+:::
+
+::::
+
+### Modificación
+
+:::: {.columns}
+
+::: {.column width=50%}
+- Mayusculas
+```{r echo=TRUE}
+#| code-line-numbers: "3"
+penguins |>
+  select(species, island) |>
+  mutate(ISLAND = str_to_upper(island))
+```
+:::
+
+
+::: {.column width=50%}
+- Minusculas.
+```{r echo=TRUE}
+#| code-line-numbers: "3"
+penguins |>
+  select(species, island) |>
+  mutate(ISLAND = str_to_lower(island))
+```
+
+:::
+::::
+
+### Coincidencia
+ 
+:::: {.columns}
+
+::: {.column width=50%}
+
+- `str_detect()`
+- "Adelie" - "Gentoo" - "Chinstrap"
+
+```{r echo=TRUE}
+#| code-line-numbers: "3"
+penguins |>
+  select(species, island) |>
+  filter(str_detect(species, "Gent"))
+```
+:::
+
+::: {.column width=50%}
+- [Expresiones reculares](https://rstudio-pubs-static.s3.amazonaws.com/74603_76cd14d5983f47408fdf0b323550b846.html)
+
+- 'Torgersen" - "Biscoe" - "Dream" 
+
+```{r echo=TRUE}
+#| code-line-numbers: "3"
+penguins |>
+  select(species, island) |>
+  filter(str_detect(island, "^T"))
+```
+
+:::
+::::
+
+
+:::
+<!--end panels-->
+
+
+
+## tidyr {background-image="images/hex/tidyr.svg" background-size="8%" background-position="98% 4%"}
+
+<!--start panels-->
+::: {.panel-tabset}
+
+### tidyr
+> Hay tres reglas interrelacionadas que hacen que un conjunto de datos se considere en [formato tidy](https://r4ds.had.co.nz/tidy-data.html) :
+
+ - Cada variable debe tener su propia columna.
+ - Cada observación debe tener su propia fila.
+ - Cada valor debe tener su propia celda.
+ <center>
+![](https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png){width=1200px fig-alt="schematic representing the 3 earlier points"}
+</center>
+
+
+### Un-tidying 
+
+- `pivot_wider()`
+
+```{r echo=TRUE}
+#| code-line-numbers: "2-3"
+penguins |>
+  pivot_wider(names_from = sex,
+              values_from = body_mass_g)
+
+```
+
+### Re-tidying
+
+- `pivot_longer()`
+```{r eval=TRUE, echo=FALSE}
+untidy_penguins <- penguins |>
+  pivot_wider(names_from = sex,
+              values_from = body_mass_g)
+```
+
+```{r echo=TRUE}
+#| code-line-numbers: "2,3,4"
+untidy_penguins |>
+  pivot_longer(cols = male:`NA`,           
+               names_to = "sex",           
+               values_to = "body_mass_g")
+```
+
+:::
+<!--end panels-->
+
+## {background-color="#303436" background-image="images/leone-venter-pVt9j3iWtPM-unsplash.jpg"}
+
+:::aside
+Photo by <a href="https://unsplash.com/@fempreneurstyledstock?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Leone Venter</a> on <a href="https://unsplash.com/photos/pVt9j3iWtPM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
+
+## Herramientas 
+
+::: {.panel-tabset}
+
+#### CRAN Task Views
+<center>
+![](images/ctv.png){width=1200px fig-alt="schematic representing the 3 earlier points"}
+</center>
+
+#### R-universe
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+![](images/r_universe.png){width=1200px}
+:::
+
+::: {.column width=50%}
+
+![](images/r_universe_ecology.png){width=1200px}
+
+:::
+::::
+::: aside
+
+[https://r-universe.dev/search/](https://r-universe.dev/search/){.small-text}
+[https://cran.r-project.org/web/views/](https://cran.r-project.org/web/views/){.small-text}
+:::
+:::
+
+## Herramientas 
+
+
+<center>
+![](images/git_github.svg){width=1200px}
+</center>
+## Herramientas 
+
+<center>
+
+![](images/git_github_rstudio.svg){width=1200px}
+</center>
+
+## [Reproducibilidad y transparencia !! ]{style="color: transparent"} {background-color="#F9F9F7" background-image="images/pawel-czerwinski-lWBZ01XRRoI-unsplash.jpg"  background-size="contain"}
+
+:::: {.columns}
+
+::: {.column width=70%}
+
+<center>
+### [Reproducibilidad  y transparencia.]{style="color: #00cc00"}
+</center>
+
+:::
+::: {.column width=30%}
+:::
+::::
+::: aside
+Photo by <a href="https://unsplash.com/@pawel_czerwinski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pawel Czerwinski</a> on <a href="https://unsplash.com/photos/lWBZ01XRRoI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+:::
+
+## Reproducibilidad y transparencia !! 
+
+<center>
+![](images/irreproducibility_1.png){width=1200px}
+</center>
+
+::: aside
+[The Economics of Reproducibility in Preclinical Research](https://pubmed.ncbi.nlm.nih.gov/26057340/)
+:::
+
+## Reproducibilidad y transparencia !! 
+
+<center>
+![](images/irreproducibility_2.png){width=1200px}
+</center>
+
+::: aside
+[The Economics of Reproducibility in Preclinical Research](https://pubmed.ncbi.nlm.nih.gov/26057340/)
+:::
+
+
+## Reproducibilidad y transparencia !! { background-color="#EDE8EA" background-image="images/joel-peel-vlBCGvydRrs-unsplash.jpg" background-position="left" background-size="contain"}
+
+::: {style="position: absolute; left: 480px; top: 150px; height: 570px; width: 1200px; background-color: #CECABE; padding: 20px; padding-left: 50px; box-shadow: 15px 15px 0px 0px #56BF99; border-radius: 5px;"}
+
+- [F (Findable): los datos deben ser fácilmente identificables y localizables, con metadatos claros y bien definidos que permitan su búsqueda y recuperación.]{style="font-size: 30px; font-weight: bold; line-height: 1em; margin: 0px"} 
+
+- [A (Accessible): los datos deben estar disponibles para su acceso y descarga, preferiblemente a través de una plataforma en línea.]{style="font-size: 30px; font-weight: bold; line-height: 1em; margin: 0px"} 
+
+- [I (Interoperable): los datos deben poder ser utilizados en diferentes contextos y por diferentes sistemas, con formatos estandarizados y estructuras bien definidas.]{style="font-size: 30px; font-weight: bold; line-height: 1em; margin: 0px"} 
+- [R (Reusable): los datos deben ser utilizables para diferentes propósitos, con licencias claras y permisos de uso explícitos.]{style="font-size: 30px; font-weight: bold; line-height: 1em; margin: 0px"} 
+
+:::
+
+
+<!-- agradecimeintos-->
+
+## {background-color="#303436" background-image="images/joel-peel-vlBCGvydRrs-unsplash.jpg"}
+
+::: columns
+::: {.column}
+
+<br>
+
+
+::: aside
+Photo by <a href="https://unsplash.com/@joel_m_peel?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Joel Peel</a> on <a href="https://unsplash.com/photos/vlBCGvydRrs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+:::
+
+:::
+
+::: {.column}
+
+<center>
+
+<img style="border-radius: 50%;" src="images/DSC_0140.JPG" width="550px"/>
+
+
+{{< fa brands twitter >}} [@PaulEfrenSantos](https://twitter.com/PaulEfrenSantos)
+
+{{< fa brands github >}} [PaulESantos](https://github.com/PaulESantos)
+
+{{< fa globe >}} [paulefrensa.rbind.io](https://paulefrensa.rbind.io/)
+
+</center>
+:::
+
+:::
+
+
+<!-- fuentes-->
+
+## {background-color="#999900" background-image="images/joel-peel-vlBCGvydRrs-unsplash.jpg"}
+
+::: columns
+::: {.column}
+
+### Articulos:
+
+- [Open science, reproducibility, and transparency in ecology](https://esajournals.onlinelibrary.wiley.com/doi/epdf/10.1002/eap.1822)
+
+- [A Beginner’s Guide to Conducting Reproducible Research](https://esajournals.onlinelibrary.wiley.com/doi/epdf/10.1002/bes2.1801)
+
+- [The FAIR Guiding Principles for scientific data management and stewardship](https://www.nature.com/articles/sdata201618)
+
+- [Data Organization in Spreadsheets](https://www.tandfonline.com/doi/pdf/10.1080/00031305.2017.1375989)
+
+- [Tidy Data](https://vita.had.co.nz/papers/tidy-data.pdf)
+
+### Video:
+- [Keynote EARL London 2018 - Garrett Grolemund, RStudio](https://www.youtube.com/watch?v=HVlwNayog-k&t=1273s)
+
+:::
+
+::: {.column}
+### Libro:
+<center>
+<img src="images/r4ds-cover.png" width="450px"/>
+</center>
+
+[Ingles](https://r4ds.hadley.nz/) / [Español](https://es.r4ds.hadley.nz/) 
+:::
+
+:::

@@ -1,0 +1,134 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// css
+
+#title-slide > h1 {
+  text-align: left;
+  font-weight: 300;
+  color: #404041;
+}
+
+#title-slide > p {
+  color: #818184;
+  font-size: 65px;
+  text-align: left;
+  font-weight: 300;
+}
+
+section.has-dark-background > h2 {
+  font-weight: 300 !important;
+  color: #fff !important;
+}
+
+
+h2 {
+  font-weight: 500 !important;
+  color: #404041 !important;
+}
+
+
+body {
+  font-weight: 400 !important;
+  color: #404041 !important;
+}
+
+// fonts
+$font-family-sans-serif: 'Open Sans', sans-serif !default;
+$font-family-monospace: 'Source Code Pro', monospace !default;
+
+// colors
+$body-bg: #FFF !default;
+$body-color: #404041 !default;
+$link-color: #447099 !default;
+$code-color: #72994E !default;
+$selection-bg: #EE6331;
+
+// dark colors
+$dark-bg-text-color:	#fff !default;
+$dark-bg-link-color:	#A2B8CB !default;
+$dark-bg-code-color:	#72994E !default;
+
+
+// headings
+$presentation-heading-font: "Open Sans", sans-serif !default;
+
+
+////
+
+.center-x {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+// wip: code
+//.reveal pre.sourceCode {
+  //display: flex;
+  //flex-wrap: wrap !important;
+//}
+
+
+
+// smaller text
+.small-text {
+  font-size: 80%;
+}
+
+// panel tabs
+
+// line under tabs
+.panel-tabset [role="tablist"] {
+  border-bottom-width: 1px;
+}
+
+// inactive tabs
+.panel-tabset [role="tab"] {
+  border-color: #fff #fff transparent; // top sides bottom
+}
+
+// hover
+.panel-tabset [role="tab"]:hover:not([aria-selected="true"]) {
+  border-color: #b1b1b1 #b1b1b1 transparent; // top sides bottom
+}
+
+// selected tab
+.panel-tabset [role="tab"][aria-selected="true"] {
+ // border-bottom-color: #fff !important;
+}
+
+
+
+.panelset .panel-tabs .panel-tab {
+  min-height: 50px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 0.5em 1em;
+  font-family: var(--panel-tab-font-family);
+  opacity: var(--panel-tab-inactive-opacity);
+  border-top: transparent;
+    border-top-color: transparent;
+  border-bottom: 2px solid transparent;
+    border-bottom-color: transparent;
+  margin-bottom: -2px; // color: currentColor;
+  background-color: var(--panel-tab-background);
+  list-style: none;
+  z-index: 5;
+}
+
+.panelset .panel-tabs * {
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+
+.panelset * {
+  box-sizing: border-box;
+}
